@@ -1,0 +1,33 @@
+#
+# ~/.bashrc
+#
+
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+# History
+HISTSIZE=10000
+HISTFILESIZE=20000
+HISTCONTROL=ignoreboth
+shopt -s histappend
+
+# Update LINES and COLUMNS after each command
+shopt -s checkwinsize
+
+# Completion
+[[ -r /usr/share/bash-completion/bash_completion ]] && . /usr/share/bash-completion/bash_completion
+
+alias ls='ls --color=auto'
+alias ll='ls -lah'
+alias grep='grep --color=auto'
+# Prompt: [user@host /full/path (branch)]$
+GIT_PS1_SHOWDIRTYSTATE=1
+GIT_PS1_SHOWUNTRACKEDFILES=1
+GIT_PS1_SHOWUPSTREAM=auto
+[[ -r /usr/share/git/completion/git-prompt.sh ]] && . /usr/share/git/completion/git-prompt.sh
+if declare -F __git_ps1 >/dev/null; then
+    PS1='[\u@\h \w$(__git_ps1 " (%s)")]\$ '
+else
+    PS1='[\u@\h \w]\$ '
+fi
+export PATH="$HOME/.local/bin:$PATH"
