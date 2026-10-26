@@ -20,14 +20,22 @@ shopt -s checkwinsize
 alias ls='ls --color=auto'
 alias ll='ls -lah'
 alias grep='grep --color=auto'
-# Prompt: [user@host /full/path (branch)]$
+# Prompt: HH:MM user@ /full/path (branch)$
 GIT_PS1_SHOWDIRTYSTATE=1
 GIT_PS1_SHOWUNTRACKEDFILES=1
 GIT_PS1_SHOWUPSTREAM=auto
 [[ -r /usr/share/git/completion/git-prompt.sh ]] && . /usr/share/git/completion/git-prompt.sh
-if declare -F __git_ps1 >/dev/null; then
-    PS1='[\u@\h \w$(__git_ps1 " (%s)")]\$ '
-else
-    PS1='[\u@\h \w]\$ '
-fi
+
+# Tokyo Night colors (truecolor)
+tn_gray='\[\e[38;2;86;95;137m\]'
+tn_blue='\[\e[38;2;122;162;247m\]'
+tn_cyan='\[\e[38;2;125;207;255m\]'
+tn_magenta='\[\e[38;2;187;154;247m\]'
+tn_green='\[\e[38;2;158;206;106m\]'
+tn_reset='\[\e[0m\]'
+
+git_part=''
+declare -F __git_ps1 >/dev/null && git_part="${tn_magenta}\$(__git_ps1 \" (%s)\")"
+PS1="${tn_gray}\A ${tn_blue}\u${tn_gray}@${tn_cyan}\w${git_part}${tn_green}\\\$ ${tn_reset}"
+unset git_part
 export PATH="$HOME/.local/bin:$PATH"
