@@ -7,6 +7,8 @@ export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
 export XDG_CACHE_HOME="$HOME/.cache"
 
+export CLAUDE_CONFIG_DIR="$XDG_CONFIG_HOME/claude"
+
 # Keep history files out of the home directory (only if the directory exists)
 [[ -d "$XDG_STATE_HOME/less" ]] && export LESSHISTFILE="$XDG_STATE_HOME/less/history"
 [[ -d "$XDG_STATE_HOME/python" ]] && export PYTHON_HISTORY="$XDG_STATE_HOME/python/history"
