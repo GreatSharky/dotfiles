@@ -5,3 +5,4 @@ theme = TokyoNight
 font-family = JetBrainsMono Nerd Font
 font-size = 12
 
+command = /bin/bash --login
