@@ -1,0 +1,8 @@
+# ~/.profile
+#
+# greetd starts the session through an sh-style login shell, which reads
+# this file but never ~/.bash_profile. Hand over to it so the session
+# (Hyprland and everything it launches) gets the same environment.
+# bash itself prefers ~/.bash_profile for login shells, so this does not loop.
+
+[ -n "$BASH_VERSION" ] && [ -f "$HOME/.bash_profile" ] && . "$HOME/.bash_profile"
