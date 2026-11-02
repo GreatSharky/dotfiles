@@ -12,6 +12,7 @@ credentials*
 *.swo
 *~
 .DS_Store
+*.qmlls.ini
 
 # Local machine overrides
 *.local
