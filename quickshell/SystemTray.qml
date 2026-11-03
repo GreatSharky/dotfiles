@@ -1,5 +1,7 @@
 import Quickshell
-import Quickshell.Wayland
+import Quickshell.Widgets
+import qs.components
+import QtQuick
 
 Scope {
 
@@ -7,8 +9,6 @@ Scope {
     model: Quickshell.screens
 
     PanelWindow {
-      WlrLayershell.layer: WlrLayer.Bottom
-      exclusionMode: ExclusionMode.Ignore
       required property var modelData
       screen: modelData
 
@@ -16,16 +16,19 @@ Scope {
         top: true
         left: true
         right: true
-        bottom: true
       }
 
-      implicitHeight: clock.height
-      implicitWidth: clock.width
-      color: "transparent"
+      implicitHeight: 25
+      color: Qt.rgba(.2,.2,.2,.5)
 
       ClockWidget {
         id: clock
         anchors.centerIn: parent
+        font.pixelSize: 30
+      }
+      Workspaces {
+        id: workspaces
+        anchors.left: parent.left
       }
     }
   }

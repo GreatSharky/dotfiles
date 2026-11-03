@@ -1,8 +1,8 @@
 import Quickshell
-import qs.wallpaperclock
-import qs.systemtray
+import QtQuick
+import qs.components
 
 Scope {
   WallpaperClock {}
-  Bar {}
+  SystemTray {}
 }
