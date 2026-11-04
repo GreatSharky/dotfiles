@@ -12,7 +12,7 @@ Scope {
       id: systemtray
       required property var modelData
       property var margin: MarginWrapperManager {
-        leftMargin: 5
+        leftMargin: 10
         topMargin: 2
         bottomMargin: 2
       }
@@ -25,7 +25,7 @@ Scope {
       }
 
       implicitHeight: 30
-      color: Qt.rgba(.2,.2,.2,.5)
+      color: Qt.rgba(.2,.2,.2,.2)
 
       ClockWidget {
         id: clock
@@ -37,6 +37,13 @@ Scope {
         anchors {
           left: parent.left
           leftMargin: systemtray.margin.leftMargin
+          verticalCenter: parent.verticalCenter
+        }
+      }
+      StatusArea {
+        anchors {
+          right: parent.right
+          rightMargin: systemtray.margin.leftMargin
           verticalCenter: parent.verticalCenter
         }
       }

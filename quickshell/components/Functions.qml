@@ -2,6 +2,7 @@
 pragma Singleton
 
 import Quickshell
+import Quickshell.Services.UPower
 
 Singleton {
   // Whole-pixel width that drops by a fixed `step` per unit of distance,
@@ -28,5 +29,17 @@ Singleton {
     if (distance >= cutoff)
       return 0
     return Math.round(min + (max - min) * Math.exp(-(distance * distance) / spread))
+  }
+
+  // Pick a glyph for a value from 0 to 1.
+  // `levels` is a list of { min, glyph } entries sorted by `min` ascending.
+  // The result is the glyph of the last entry whose `min` the value has reached.
+  function levelGlyph(value: real, levels: var): string {
+    let result = levels[0].glyph
+    for (const level of levels) {
+      if (value >= level.min)
+        result = level.glyph
+    }
+    return result
   }
 }
