@@ -24,15 +24,8 @@ Column {
             anchors.horizontalCenter: parent.horizontalCenter
 
             Rectangle {
-                function gaussianWidth(distance: int): real {
-                    const min = 8
-                    const max = 24
-                    const maxDistance = 5
-                    const falloff = 0.5
-                    var width = Math.round(min + (max - min) * Math.exp(-(distance * distance) / 4.5))
-                    return distance < maxDistance ? width : 0
-                }
-                implicitWidth: gaussianWidth(Math.abs(container.focusedIndex-wrapper.index))
+                implicitWidth: Functions.gaussianWidth(
+                    Math.abs(container.focusedIndex - wrapper.index), 8, 24, 5, 4.5)
                 implicitHeight: 3
                 radius: 12
                 color: wrapper.modelData.focused ? "white" : "darkgray"
