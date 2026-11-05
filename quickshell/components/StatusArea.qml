@@ -12,5 +12,5 @@ Row {
   Volume {}
   Brightness {}
   Battery {}
-  // Network {}
+  Network {}
 }

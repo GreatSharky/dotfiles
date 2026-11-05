@@ -18,7 +18,7 @@ Indicator {
         command: "brightnessctl -m -c backlight"
         onOutputChanged: {
             const fields = poller.output.trim().split(",")
-            brightness.level = Number(fields[2]) / Number(fields[4])
+            brightness.level = fields.length > 4 ? Number(fields[2]) / Number(fields[4]) : 0
         }
     }
 }
