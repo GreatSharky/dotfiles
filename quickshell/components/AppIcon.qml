@@ -13,6 +13,7 @@ WrapperMouseArea {
 
     property string source
     property real size: 22
+    property real oppacity: 1
     readonly property bool hovered: containsMouse
 
     hoverEnabled: true
@@ -21,7 +22,7 @@ WrapperMouseArea {
     IconImage {
         implicitSize: root.size
         source: root.source
-        opacity: root.enabled ? 1.0 : 0.4
+        opacity: root.opacity
 
         Behavior on implicitSize {
             NumberAnimation { duration: 200; easing.type: Easing.OutCubic }
