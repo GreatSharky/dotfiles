@@ -42,4 +42,14 @@ Singleton {
     }
     return result
   }
+
+  // Match pattern and return icon
+  function patternMatch(title: string, patterns: var): string {
+    for (const rule of patterns) {
+      if (rule.pattern.test(title)) {
+        return rule.icon
+      }
+    }
+    return ""
+  }
 }

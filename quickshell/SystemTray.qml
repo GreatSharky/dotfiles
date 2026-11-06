@@ -24,27 +24,55 @@ Scope {
         right: true
       }
 
-      implicitHeight: 30
-      color: Qt.rgba(.2,.2,.2,.2)
+      // The window is taller than the visible bar so icons can extend below it.
+      // Only the bar height is reserved, and clicks in the transparent part pass through.
+      implicitHeight: 50
+      exclusiveZone: 30
+      color: "transparent"
+      mask: Region { item: bar }
 
-      ClockWidget {
-        id: clock
-        anchors.centerIn: parent
-        font.pixelSize: 25
-      }
-      Workspaces {
-        id: workspaces
+      // The visible bar. Everything is positioned relative to this strip.
+      Item {
+        id: bar
         anchors {
+          top: parent.top
           left: parent.left
-          leftMargin: systemtray.margin.leftMargin
-          verticalCenter: parent.verticalCenter
-        }
-      }
-      StatusArea {
-        anchors {
           right: parent.right
-          rightMargin: systemtray.margin.leftMargin
-          verticalCenter: parent.verticalCenter
+        }
+        height: 30
+
+        Rectangle {
+          anchors.fill: parent
+          color: Qt.rgba(.2,.2,.2,.2)
+        }
+
+        ClockWidget {
+          id: clock
+          anchors.centerIn: parent
+          font.pixelSize: 25
+        }
+        Workspaces {
+          id: workspaces
+          anchors {
+            left: parent.left
+            leftMargin: systemtray.margin.leftMargin
+            verticalCenter: parent.verticalCenter
+          }
+        }
+        StatusArea {
+          id: statusarea
+          anchors {
+            right: parent.right
+            rightMargin: systemtray.margin.leftMargin
+            verticalCenter: parent.verticalCenter
+          }
+        }
+        NavigationBar {
+          anchors {
+            left: workspaces.right
+            leftMargin: systemtray.margin.leftMargin
+            verticalCenter: parent.verticalCenter
+          }
         }
       }
     }

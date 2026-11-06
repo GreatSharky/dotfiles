@@ -6,14 +6,14 @@ import Quickshell.Widgets
 
 Column {
     id: container
-    readonly property var workspaces: Hyprland.workspaces.values.filter(w => w.id >= 0)
+    readonly property var workspaces: Hyprland.workspaces.values.filter(w => w.id >= 0).sort((a,b) => a.id - b.id)
     readonly property int focusedIndex: workspaces.findIndex(w => w.focused)
     spacing: 2
     topPadding: 2
     bottomPadding: 2
     Repeater {
         model: ScriptModel {
-            values: Hyprland.workspaces.values.filter(entry => entry.id >= 0)
+            values: container.workspaces
         }
 
         WrapperRectangle {
@@ -21,7 +21,7 @@ Column {
             required property var modelData
             required property int index
             color: "transparent"
-            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.horizontalCenter: parent?.horizontalCenter
 
             Rectangle {
                 implicitWidth: Functions.gaussianWidth(
