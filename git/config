@@ -37,3 +37,6 @@
 
 [help]
 	autocorrect = prompt
+
+[core]
+	fsync = all
