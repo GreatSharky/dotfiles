@@ -9,8 +9,24 @@ Row {
   // components/Battery.qml exists, and add the other indicators below it.
 
   Mic {}
-  Volume {}
-  Brightness {}
+  Volume {
+    id: volume
+    popup: Popup { 
+      id: volpop
+      anchor.item: volume
+      anchor.rect.y: volume.height
+      anchor.rect.x: volume.x - volpop.implicitWidth / 2
+    }
+  }
+  Brightness {
+    id: brightness
+    popup: Popup {
+      id: bpop
+      anchor.item: brightness
+      anchor.rect.y: brightness.height
+      anchor.rect.x: brightness.x - bpop.implicitWidth / 2
+    }
+  }
   Battery {}
   Network {}
 }
