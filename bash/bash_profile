@@ -9,6 +9,7 @@ export XDG_CACHE_HOME="$HOME/.cache"
 
 export CLAUDE_CONFIG_DIR="$XDG_CONFIG_HOME/claude"
 export ANSIBLE_HOME="$XDG_DATA_HOME/ansible"
+export EDITOR=$(command -v nvim >/dev/null 2>&1 && echo nvim || echo vim)
 
 # Keep history files out of the home directory (only if the directory exists)
 [[ -d "$XDG_STATE_HOME/less" ]] && export LESSHISTFILE="$XDG_STATE_HOME/less/history"
