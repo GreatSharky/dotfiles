@@ -295,8 +295,9 @@ hl.bind(mainMod .. " + H", hl.dsp.focus({ direction = "left" }))
 hl.bind(mainMod .. " + L", hl.dsp.focus({ direction = "right" }))
 hl.bind(mainMod .. " + K", hl.dsp.focus({ direction = "up" }))
 hl.bind(mainMod .. " + J", hl.dsp.focus({ direction = "down" }))
-hl.bind(mainMod .. " + SHIFT + H", hl.dsp.layout("swapcol l"))
-hl.bind(mainMod .. " + SHIFT + L", hl.dsp.layout("swapcol r"))
+-- Swap the column, then tell the Quickshell navigation bar to re-read the window order
+hl.bind(mainMod .. " + SHIFT + H", hl.dsp.exec_cmd([[hyprctl dispatch 'hl.dsp.layout("swapcol l")' && qs ipc call nav refresh]]))
+hl.bind(mainMod .. " + SHIFT + L", hl.dsp.exec_cmd([[hyprctl dispatch 'hl.dsp.layout("swapcol r")' && qs ipc call nav refresh]]))
 
 hl.bind(mainMod .. " + O", hl.dsp.layout("colresize +conf"))
 hl.bind(mainMod .. "+ SHIFT + X", hl.dsp.exec_cmd("loginctl lock-session"))
