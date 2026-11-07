@@ -11,10 +11,10 @@ Item {
     id: volumepanel
     // Fixed width, set on a plain Item: a layout recomputes its own implicitWidth from its
     // children, so only an Item can really pin the popup window size.
-    implicitWidth: 260
+    implicitWidth: 240
     implicitHeight: layout.implicitHeight
     // Every row is split in two equal halves: switch or label on the left, slider on the right.
-    readonly property real sliderWidth: implicitWidth * .7
+    readonly property real sliderWidth: implicitWidth * .67
     readonly property var sink: Pipewire.defaultAudioSink
     readonly property var streams: Pipewire.nodes.values.filter(s => s.isStream)
     PwObjectTracker { objects: volumepanel.streams }
