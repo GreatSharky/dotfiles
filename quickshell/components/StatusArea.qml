@@ -1,8 +1,9 @@
 // StatusArea.qml
 // Right-hand side of the bar. Add one indicator component per item.
 import QtQuick
+import QtQuick.Layouts
 
-Row {
+RowLayout {
   spacing: 12
 
   // Placeholder to check the layout. Replace it with `Battery {}` once

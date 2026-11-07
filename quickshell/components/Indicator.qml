@@ -1,10 +1,13 @@
 // Indicator.qml
 // A reusable icon + optional text pair for the status area.
 import QtQuick
+import QtQuick.Layouts
 import Quickshell.Widgets
 
 WrapperMouseArea {
   id: root
+  // In a layout, fill the full height so the whole bar height is clickable.
+  Layout.fillHeight: true
   // Nerd Font glyph, e.g. "󰁹"
   property string icon: ""
   // Value text next to the icon. Leave empty to show only the icon.

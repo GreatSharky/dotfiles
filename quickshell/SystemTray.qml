@@ -64,7 +64,8 @@ Scope {
           anchors {
             right: parent.right
             rightMargin: systemtray.margin.leftMargin
-            verticalCenter: parent.verticalCenter
+            top: parent.top
+            bottom: parent.bottom
           }
         }
         NavigationBar {
