@@ -10,15 +10,7 @@ RowLayout {
   // components/Battery.qml exists, and add the other indicators below it.
   Mic {}
   Volume {}
-  Brightness {
-    id: brightness
-    popup: BarPopup {
-      id: bpop
-      anchor.item: brightness
-      anchor.rect.y: brightness.height
-      anchor.rect.x: (brightness.width - bpop.implicitWidth) / 2
-    }
-  }
+  Brightness {}
   Battery {}
   Network {}
 }

@@ -7,58 +7,91 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 
-ColumnLayout {
+Item {
     id: volumepanel
-    // Fixed width: the popup window is sized from this, so nothing inside (a glyph, a
-    // stream appearing) can resize or move the window.
+    // Fixed width, set on a plain Item: a layout recomputes its own implicitWidth from its
+    // children, so only an Item can really pin the popup window size.
     implicitWidth: 260
+    implicitHeight: layout.implicitHeight
+    // Every row is split in two equal halves: switch or label on the left, slider on the right.
+    readonly property real sliderWidth: implicitWidth * .7
     readonly property var sink: Pipewire.defaultAudioSink
     readonly property var streams: Pipewire.nodes.values.filter(s => s.isStream)
     PwObjectTracker { objects: volumepanel.streams }
 
-    Text {
-        text: sink?.description ?? "No output"
-        color: Theme.fg
-    }
+    ColumnLayout {
+        id: layout
+        anchors.fill: parent
 
-    RowLayout {
-        Layout.fillWidth: true
-        QuickSwitch {
-            checkable: false                        // the mute state decides, not the click
-            checked: !(sink?.audio.muted ?? false)  // on = sound on, off (dark) = muted
-            text: !sink?.audio.muted ? "" : ""
-            font.pixelSize: 16
-            implicitHeight: 20
-            onClicked: sink.audio.muted = !sink.audio.muted
-        }
-        Slider {
+        Text {
             Layout.fillWidth: true
-            from: 0
-            to: 1
-            value: sink?.audio.volume ?? 0
-            onMoved: sink.audio.volume = value
+            elide: Text.ElideRight
+            text: sink?.description ?? "No output"
+            color: Theme.fg
+            font.family: Theme.font
+            font.pixelSize: 14
+            font.bold: true
         }
-    }
 
-    Repeater {
-        model: ScriptModel { values: volumepanel.streams }
-        WrapperRectangle {
-            id: stream
+        RowLayout {
             Layout.fillWidth: true
-            required property var modelData
-            color: Theme.surface
-
-            RowLayout {
-                Text {
-                    text: stream.modelData.properties["application.name"]
-                    color: Theme.fg
+            spacing: 0
+            Item {
+                Layout.preferredWidth: volumepanel.width - volumepanel.sliderWidth
+                implicitHeight: muteSwitch.implicitHeight
+                QuickSwitch {
+                    id: muteSwitch
+                    anchors.verticalCenter: parent.verticalCenter
+                    checkable: false                        // the mute state decides, not the click
+                    checked: !(sink?.audio.muted ?? false)  // on = sound on, off (dark) = muted
+                    text: !sink?.audio.muted ? "" : ""
+                    font.pixelSize: 16
+                    implicitHeight: 20
+                    onClicked: sink.audio.muted = !sink.audio.muted
                 }
-                Slider {
-                    Layout.fillWidth: true
-                    from: 0
-                    to: 1
-                    value: stream.modelData?.audio.volume ?? 0
-                    onMoved: stream.modelData.audio.volume = value
+            }
+            Slider {
+                Layout.preferredWidth: volumepanel.sliderWidth
+                from: 0
+                to: 1
+                value: sink?.audio.volume ?? 0
+                onMoved: sink.audio.volume = value
+            }
+        }
+        MenuSeparator {
+            topPadding: 6
+            bottomPadding: 6
+            Layout.fillWidth: true
+            contentItem: Rectangle {
+                implicitWidth: volumepanel.implicitWidth
+                implicitHeight: 1
+                color: Theme.muted
+            }
+        }
+
+        Repeater {
+            model: ScriptModel { values: volumepanel.streams }
+            WrapperRectangle {
+                id: stream
+                Layout.fillWidth: true
+                required property var modelData
+                color: Theme.surface
+
+                RowLayout {
+                    spacing: 0
+                    Text {
+                        Layout.preferredWidth: volumepanel.width - volumepanel.sliderWidth
+                        elide: Text.ElideRight
+                        text: stream.modelData.properties["media.name"]
+                        color: Theme.fg
+                    }
+                    Slider {
+                        Layout.preferredWidth: volumepanel.sliderWidth
+                        from: 0
+                        to: 1
+                        value: stream.modelData?.audio.volume ?? 0
+                        onMoved: stream.modelData.audio.volume = value
+                    }
                 }
             }
         }
