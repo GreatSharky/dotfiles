@@ -16,14 +16,15 @@ Indicator {
     readonly property string mutedGlyph: ""
     readonly property var muted: audiosink?.muted ?? false
 
+
     icon: muted ? mutedGlyph : Functions.levelGlyph(audiosink?.volume ?? 0, levelGlyphs)
-    text: muted ? "0 %" : `${Math.round((audiosink?.volume ?? 0) * 100)}%`
+    percent: muted ? 0 : (audiosink?.volume ?? 0) * 100
 
     popup: BarPopup {
         id: popup
         anchor.item: audio
         anchor.rect.y: audio.height
-        anchor.rect.x: audio.x - popup.implicitWidth / 2
+        anchor.rect.x: (audio.width - popup.implicitWidth) / 2
 
         VolumePanel {}
     }

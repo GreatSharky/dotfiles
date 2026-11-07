@@ -16,7 +16,7 @@ RowLayout {
       id: bpop
       anchor.item: brightness
       anchor.rect.y: brightness.height
-      anchor.rect.x: brightness.x - bpop.implicitWidth / 2
+      anchor.rect.x: (brightness.width - bpop.implicitWidth) / 2
     }
   }
   Battery {}

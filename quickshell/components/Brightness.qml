@@ -9,8 +9,9 @@ Indicator {
         { min: .6, glyph: "" },
     ]
 
+
     icon: Functions.levelGlyph(level, levelGlyphs)
-    text: `${Math.round(level * 100)}%`
+    percent: level * 100
 
     Poller {
         id: poller

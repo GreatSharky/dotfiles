@@ -9,6 +9,9 @@ import QtQuick.Controls
 
 ColumnLayout {
     id: volumepanel
+    // Fixed width: the popup window is sized from this, so nothing inside (a glyph, a
+    // stream appearing) can resize or move the window.
+    implicitWidth: 260
     readonly property var sink: Pipewire.defaultAudioSink
     readonly property var streams: Pipewire.nodes.values.filter(s => s.isStream)
     PwObjectTracker { objects: volumepanel.streams }
@@ -19,13 +22,17 @@ ColumnLayout {
     }
 
     RowLayout {
-        Button {
-            text: sink?.audio.muted ? "" : ""
-            font.family: Theme.font
-            flat: sink.audio.muted
+        Layout.fillWidth: true
+        QuickSwitch {
+            checkable: false                        // the mute state decides, not the click
+            checked: !(sink?.audio.muted ?? false)  // on = sound on, off (dark) = muted
+            text: !sink?.audio.muted ? "" : ""
+            font.pixelSize: 16
+            implicitHeight: 20
             onClicked: sink.audio.muted = !sink.audio.muted
         }
         Slider {
+            Layout.fillWidth: true
             from: 0
             to: 1
             value: sink?.audio.volume ?? 0
@@ -37,6 +44,7 @@ ColumnLayout {
         model: ScriptModel { values: volumepanel.streams }
         WrapperRectangle {
             id: stream
+            Layout.fillWidth: true
             required property var modelData
             color: Theme.surface
 
@@ -46,6 +54,7 @@ ColumnLayout {
                     color: Theme.fg
                 }
                 Slider {
+                    Layout.fillWidth: true
                     from: 0
                     to: 1
                     value: stream.modelData?.audio.volume ?? 0

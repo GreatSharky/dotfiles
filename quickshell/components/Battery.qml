@@ -15,5 +15,5 @@ Indicator {
 
     visible: powerinfo.isLaptopBattery
     icon: charging ? chargingGlyph : Functions.levelGlyph(powerinfo.percentage, levelGlyphs)
-    text: `${Math.round(powerinfo.percentage * 100)}%`
+    percent: powerinfo.percentage * 100
 }
