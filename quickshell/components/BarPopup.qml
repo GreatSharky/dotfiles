@@ -8,11 +8,13 @@ PopupWindow {
     // until the closing animation has finished.
     property bool open: false
     property bool closeOnUnfocus: true
+    property int padding: 6
+    default property alias contents: column.data
 
     visible: open || content.opacity > 0
     color: "transparent"
-    implicitWidth: 200
-    implicitHeight: 200
+    implicitWidth: column.implicitWidth + 2 * padding
+    implicitHeight: column.implicitHeight + 2 * padding
 
     // Only one popup open at a time: the last one opened wins.
     onOpenChanged: if (open) PopupManager.current = root
@@ -36,15 +38,17 @@ PopupWindow {
         id: content
         width: root.implicitWidth
         height: root.implicitHeight
+        radius: 10
         opacity: root.open ? 1 : 0
         scale: root.open ? 1 : 0.6  // grows out of its top edge, which is next to the bar
         transformOrigin: Item.Top
+        Behavior on opacity { NumberAnimation { duration: 100; easing.type: Easing.OutCubic } }
+        Behavior on scale { NumberAnimation { duration: 100; easing.type: Easing.OutCubic } }
+        color: "white"
 
-        Behavior on opacity {
-            NumberAnimation { duration: 200; easing.type: Easing.OutCubic }
-        }
-        Behavior on scale {
-            NumberAnimation { duration: 200; easing.type: Easing.OutCubic }
+        Column {
+            id: column
+            anchors { fill: parent; margins: root.padding}
         }
     }
 }

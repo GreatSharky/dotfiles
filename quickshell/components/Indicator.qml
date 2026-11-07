@@ -14,7 +14,7 @@ WrapperMouseArea {
   property string text: ""
   property color color: "white"
   property int fontSize: 16
-  property Popup popup
+  property BarPopup popup
 
   onClicked: {
     console.log(`${root.icon}-${root.text} clicked`)
