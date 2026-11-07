@@ -28,7 +28,7 @@ Column {
                     Math.abs(container.focusedIndex - wrapper.index), 8, 24, 5, 4.5)
                 implicitHeight: 3
                 radius: 12
-                color: wrapper.modelData.focused ? "white" : "darkgray"
+                color: wrapper.modelData.focused ? Theme.white : Theme.accent
                 visible: implicitWidth > 0
 
                 Behavior on implicitWidth {

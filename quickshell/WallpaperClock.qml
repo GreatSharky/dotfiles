@@ -22,7 +22,7 @@ Scope {
 
       implicitHeight: clock.height
       implicitWidth: clock.width
-      color: "transparent"
+      color: Theme.transparent
 
       ClockWidget {
         id: clock

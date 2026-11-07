@@ -7,7 +7,7 @@ import Qt.labs.folderlistmodel
 
 WrapperRectangle {
     id: root
-    color: Qt.rgba(0, 0, 0, 0.5)
+    color: Qt.alpha(Theme.bgDark, 0.5)
     radius: 10
     margin: 10
     height: 26

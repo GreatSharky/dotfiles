@@ -4,5 +4,5 @@ import QtQuick
 Text {
   text: Time.time
   font.pixelSize: 150
-  color: "white"
+  color: Theme.white
 }

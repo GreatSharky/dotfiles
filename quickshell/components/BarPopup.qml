@@ -44,7 +44,7 @@ PopupWindow {
         transformOrigin: Item.Top
         Behavior on opacity { NumberAnimation { duration: 100; easing.type: Easing.OutCubic } }
         Behavior on scale { NumberAnimation { duration: 100; easing.type: Easing.OutCubic } }
-        color: "white"
+        color: Theme.surface
 
         Column {
             id: column

@@ -43,7 +43,7 @@ Scope {
 
         Rectangle {
           anchors.fill: parent
-          color: Qt.rgba(.2,.2,.2,.2)
+          color: Qt.alpha(Theme.bg, 0.4)
         }
 
         ClockWidget {

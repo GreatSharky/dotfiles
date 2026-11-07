@@ -12,7 +12,7 @@ WrapperMouseArea {
   property string icon: ""
   // Value text next to the icon. Leave empty to show only the icon.
   property string text: ""
-  property color color: "white"
+  property color color: Theme.offWhite
   property int fontSize: 16
   property BarPopup popup
 
@@ -29,7 +29,7 @@ WrapperMouseArea {
       visible: root.icon !== ""
       text: root.icon
       color: root.color
-      font.family: "JetBrainsMono Nerd Font"
+      font.family: Theme.font
       font.pixelSize: root.fontSize
       anchors.verticalCenter: parent.verticalCenter
     }
@@ -38,7 +38,7 @@ WrapperMouseArea {
       visible: root.text !== ""
       text: root.text
       color: root.color
-      font.family: "JetBrainsMono Nerd Font"
+      font.family: Theme.font
       font.pixelSize: root.fontSize
       anchors.verticalCenter: parent.verticalCenter
     }

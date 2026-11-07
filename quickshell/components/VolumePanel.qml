@@ -15,13 +15,13 @@ ColumnLayout {
 
     Text {
         text: sink?.description ?? "No output"
-        color: "black"
+        color: Theme.fg
     }
 
     RowLayout {
         Button {
             text: sink?.audio.muted ? "" : ""
-            font.family: "JetBrainsMono Nerd Font"
+            font.family: Theme.font
             flat: sink.audio.muted
             onClicked: sink.audio.muted = !sink.audio.muted
         }
@@ -38,11 +38,12 @@ ColumnLayout {
         WrapperRectangle {
             id: stream
             required property var modelData
+            color: Theme.surface
 
             RowLayout {
                 Text {
                     text: stream.modelData.properties["application.name"]
-                    color: "black"
+                    color: Theme.fg
                 }
                 Slider {
                     from: 0
