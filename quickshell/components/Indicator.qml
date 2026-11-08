@@ -24,7 +24,7 @@ WrapperMouseArea {
     // Width of the icon slot. Glyphs differ in width, so a fixed slot stops the indicator
     // from resizing when the icon changes. Defaults to fit the widest Nerd Font glyphs.
     property real iconWidth: fontSize * 1.4
-    property BarPopup popup
+    property QuickPopup popup
 
     function formatPercent(value: real): string {
         const n = Math.max(0, Math.round(value));

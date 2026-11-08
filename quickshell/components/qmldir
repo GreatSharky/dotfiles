@@ -1,0 +1,23 @@
+module qs.components
+AppIcon 1.0 AppIcon.qml
+Battery 1.0 Battery.qml
+Brightness 1.0 Brightness.qml
+ClockWidget 1.0 ClockWidget.qml
+singleton Functions 1.0 Functions.qml
+Indicator 1.0 Indicator.qml
+Mic 1.0 Mic.qml
+NavigationBar 1.0 NavigationBar.qml
+Network 1.0 Network.qml
+NetworkPanel 1.0 NetworkPanel.qml
+Poller 1.0 Poller.qml
+singleton PopupManager 1.0 PopupManager.qml
+QuickButton 1.0 QuickButton.qml
+QuickPopup 1.0 QuickPopup.qml
+QuickSlider 1.0 QuickSlider.qml
+QuickSwitch 1.0 QuickSwitch.qml
+StatusArea 1.0 StatusArea.qml
+singleton Theme 1.0 Theme.qml
+singleton Time 1.0 Time.qml
+Volume 1.0 Volume.qml
+VolumePanel 1.0 VolumePanel.qml
+Workspaces 1.0 Workspaces.qml

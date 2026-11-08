@@ -4,7 +4,7 @@ Indicator {
     id: network
     readonly property NetworkDevice connectedDev: Networking.devices.values.find(d => d.connected) ?? null
     readonly property bool internet: Networking.connectivity == NetworkConnectivity.Full
-    readonly property bool isWifi: connectedDev.type == DeviceType.Wifi
+    readonly property bool isWifi: connectedDev?.type == DeviceType.Wifi
     readonly property WifiNetwork connection: isWifi ? connectedDev?.networks.values.find(d => d.connected) : null 
     readonly property var levelGlyphs: [
         { min: 0,   glyph: "󰤯" },
@@ -18,4 +18,13 @@ Indicator {
     : !internet ? "󰤩"
     : !isWifi ? "󱘖"
     : Functions.levelGlyph(signalStrenght, levelGlyphs)
+
+    popup: QuickPopup {
+        id: popup
+        anchor.item: network
+        anchor.rect.y: network.height
+        anchor.rect.x: (network.width - popup.implicitWidth) / 2
+
+        NetworkPanel { scanning: popup.open }
+    }
 }

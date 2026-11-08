@@ -20,7 +20,7 @@ Indicator {
     icon: muted ? mutedGlyph : Functions.levelGlyph(audiosink?.volume ?? 0, levelGlyphs)
     percent: muted ? 0 : (audiosink?.volume ?? 0) * 100
 
-    popup: BarPopup {
+    popup: QuickPopup {
         id: popup
         anchor.item: audio
         anchor.rect.y: audio.height
