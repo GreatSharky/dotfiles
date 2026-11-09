@@ -20,4 +20,5 @@ singleton Theme 1.0 Theme.qml
 singleton Time 1.0 Time.qml
 Volume 1.0 Volume.qml
 VolumePanel 1.0 VolumePanel.qml
+WifiConnectionIndicator 1.0 WifiConnectionIndicator.qml
 Workspaces 1.0 Workspaces.qml

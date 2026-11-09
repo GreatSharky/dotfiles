@@ -17,7 +17,11 @@ Item {
     property NetworkDevice wifi: Networking.devices.values.find(d => d.type === DeviceType.Wifi) ?? null
     // Set by the popup: scan for nearby networks only while it is open.
     property bool scanning: false
-    property var stateGlyph: ({ connected: "", known: "󱓴", unknown: "󱚖" })
+    readonly property var strengthGlyph: [
+        { min: 0,   glyph: "󰤯" },
+        { min: 0.4, glyph: "󰤢" },
+        { min: 0.6, glyph: "󰤨" },
+    ]
 
     // Nearby networks are only listed while the device scans. A Binding is used because
     // `wifi` is an object reference, and it follows the device if that changes.
@@ -34,37 +38,10 @@ Item {
 
         Repeater {
             model: ScriptModel { values: networkpopup.wifi?.networks.values ?? [] }
-            WrapperRectangle {
-                id: stream
+            WifiConnectionIndicator {
                 Layout.fillWidth: true
                 required property var modelData
-                color: Theme.surface
-                property color textcolor: {
-                    stream.modelData.connected ? Theme.fg
-                    : stream.modelData.known ? Theme.fgDark
-                    : Theme.warn
-                }
-                RowLayout {
-                    spacing: 0
-                    Text {
-                        elide: Text.ElideRight
-                        text: stream.modelData.name
-                        color: stream.textcolor
-                        font.family: Theme.font
-                        font.pixelSize: 12
-                    }
-                    Item { Layout.fillWidth: true }
-                    Text {
-                        text: {
-                            stream.modelData.connected ? networkpopup.stateGlyph.connected
-                            : stream.modelData.known ? networkpopup.stateGlyph.known
-                            : networkpopup.stateGlyph.unknown
-                        }
-                        color: stream.textcolor
-                        font.family: Theme.font
-                        font.pixelSize: 12
-                    }
-                }
+                network: modelData
             }
         }
     }

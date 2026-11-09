@@ -30,6 +30,9 @@ Scope {
       exclusiveZone: 30
       color: "transparent"
       mask: Region { item: bar }
+      // Lets the popups (which belong to this window) receive keyboard input, e.g. the Wi-Fi
+      // password field. The default is false, and a popup of a non-focusable window gets no keys.
+      focusable: true
 
       // The visible bar. Everything is positioned relative to this strip.
       Item {
