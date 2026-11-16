@@ -51,8 +51,8 @@ local menu        = "hyprlauncher"
 --
 hl.on("hyprland.start", function ()
     hl.exec_cmd(terminal .. " --title=quakeghostty")
-    hl.exec_cmd("nm-applet")
-    hl.exec_cmd("waybar & hyprpaper & firefox")
+    hl.exec_cmd("systemctl --user start hyprpolkitagent")
+    hl.exec_cmd("quickshell & hyprpaper & firefox")
     hl.exec_cmd("hypridle")
 end)
 
@@ -276,6 +276,9 @@ hl.device({
 ---------------------
 ---- KEYBINDINGS ----
 ---------------------
+local function qsEvent(eventName)
+    hl.dispatch(hl.dsp.event(eventName))
+end
 
 local mainMod = "SUPER" -- Sets "Windows" key as main modifier
 
@@ -295,9 +298,18 @@ hl.bind(mainMod .. " + H", hl.dsp.focus({ direction = "left" }))
 hl.bind(mainMod .. " + L", hl.dsp.focus({ direction = "right" }))
 hl.bind(mainMod .. " + K", hl.dsp.focus({ direction = "up" }))
 hl.bind(mainMod .. " + J", hl.dsp.focus({ direction = "down" }))
--- Swap the column, then tell the Quickshell navigation bar to re-read the window order
-hl.bind(mainMod .. " + SHIFT + H", hl.dsp.exec_cmd([[hyprctl dispatch 'hl.dsp.layout("swapcol l")' && qs ipc call nav refresh]]))
-hl.bind(mainMod .. " + SHIFT + L", hl.dsp.exec_cmd([[hyprctl dispatch 'hl.dsp.layout("swapcol r")' && qs ipc call nav refresh]]))
+-- Swap the focused column, then tell the Quickshell navigation bar to re-read the window order.
+-- Hyprland sends no event for a layout swap, so emit a custom one: Quickshell receives it as
+-- `custom>>nav-refresh` (see the Connections in quickshell/shell.qml, keep the name in sync).
+local function swapColumn(direction)
+    return function()
+        hl.dispatch(hl.dsp.layout("swapcol " .. direction))
+        qsEvent "nav-refresh"
+    end
+end
+
+hl.bind(mainMod .. " + SHIFT + H", swapColumn("l"))
+hl.bind(mainMod .. " + SHIFT + L", swapColumn("r"))
 
 hl.bind(mainMod .. " + O", hl.dsp.layout("colresize +conf"))
 hl.bind(mainMod .. "+ SHIFT + X", hl.dsp.exec_cmd("loginctl lock-session"))
@@ -345,13 +357,29 @@ local function toggleMicMute()
     hl.exec_cmd("amixer -c 1 -q sset Capture " .. (muted and "cap" or "nocap"))
 end
 
+-- Change the brightness, then tell the Quickshell brightness indicator the new state.
+-- `brightnessctl -m ... set` prints the new state (device,class,value,percent,max); it goes out in
+-- the event so Quickshell does not have to read it again. The command is run synchronously on
+-- purpose: an exec_cmd would return before the change happened. Keep the event name in sync with
+-- the Connections in quickshell/components/Brightness.qml.
+local function changeBrightness(step)
+    return function()
+        local pipe = io.popen("brightnessctl -m -c backlight -e4 -n2 set " .. step)
+        local state = pipe:read("*l")
+        pipe:close()
+        if state then
+            qsEvent("brightness:" .. state)
+        end
+    end
+end
+
 -- Laptop multimedia keys for volume and LCD brightness
 hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"), { locked = true, repeating = true })
 hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"),      { locked = true, repeating = true })
 hl.bind("XF86AudioMute",        toggleMute, { locked = true, repeating = true })
 hl.bind("XF86AudioMicMute",     toggleMicMute, { locked = true, repeating = true })
-hl.bind("XF86MonBrightnessUp",  hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%+"),                  { locked = true, repeating = true })
-hl.bind("XF86MonBrightnessDown",hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%-"),                  { locked = true, repeating = true })
+hl.bind("XF86MonBrightnessUp",  changeBrightness("5%+"), { locked = true, repeating = true })
+hl.bind("XF86MonBrightnessDown",changeBrightness("5%-"), { locked = true, repeating = true })
 
 -- Requires playerctl
 hl.bind("XF86AudioNext",  hl.dsp.exec_cmd("playerctl next"),       { locked = true })

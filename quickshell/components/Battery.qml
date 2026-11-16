@@ -14,7 +14,7 @@ Indicator {
     readonly property string chargingGlyph: "󰂄"
     readonly property var charging: powerinfo.state == UPowerDeviceState.Charging || powerinfo.state == UPowerDeviceState.FullyCharged
     property bool lowPower: powerinfo.percentage < .10
-    property bool blinkRed: false
+    property bool blinkRed: lowPower && !charging
 
     visible: powerinfo.isLaptopBattery
     icon: charging ? chargingGlyph : Functions.levelGlyph(powerinfo.percentage, levelGlyphs)
@@ -24,7 +24,7 @@ Indicator {
     Timer {
         id: blinker
         running: battery.lowPower
-        interval: 10000 * battery.powerinfo.percentage
+        interval: 10000 * battery.powerinfo.percentageowerinfo
         repeat: battery.lowPower
         onTriggered: { battery.blinkRed = !battery.blinkRed}
     }
