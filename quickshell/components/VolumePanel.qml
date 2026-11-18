@@ -2,6 +2,7 @@
 // Content of the volume popup: output name, mute toggle and volume slider.
 import Quickshell.Services.Pipewire
 import Quickshell.Widgets
+import Quickshell.Bluetooth
 import Quickshell
 import QtQuick
 import QtQuick.Layouts
@@ -15,9 +16,11 @@ Item {
     implicitHeight: layout.implicitHeight
     // Every row is split in two equal halves: switch or label on the left, slider on the right.
     readonly property real sliderWidth: implicitWidth * .67
-    readonly property var sink: Pipewire.defaultAudioSink
+    readonly property PwNode sink: Pipewire.defaultAudioSink
+    readonly property var sinks: Pipewire.nodes.values.filter(s => s.isSink)
     readonly property var streams: Pipewire.nodes.values.filter(s => s.isStream)
     PwObjectTracker { objects: volumepanel.streams }
+    PwObjectTracker { objects: volumepanel.sinks }
 
     ColumnLayout {
         id: layout
@@ -58,15 +61,26 @@ Item {
                 onMoved: sink.audio.volume = value
             }
         }
-        MenuSeparator {
-            topPadding: 6
-            bottomPadding: 6
+        SectionHeader {
+            label: "Output"
             Layout.fillWidth: true
-            contentItem: Rectangle {
-                implicitWidth: volumepanel.implicitWidth
-                implicitHeight: 1
-                color: Theme.muted
+            Layout.topMargin: 6
+        }
+
+        Repeater {
+            model: ScriptModel { values: volumepanel.sinks }
+            AudioSinkIndicator {
+                Layout.fillWidth: true
+                required property var modelData
+                audiosink: modelData
             }
+        }
+
+        SectionHeader {
+            label: "Streams"
+            visible: volumepanel.streams.length > 0
+            Layout.fillWidth: true
+            Layout.topMargin: 6
         }
 
         Repeater {

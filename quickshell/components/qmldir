@@ -15,6 +15,7 @@ QuickButton 1.0 QuickButton.qml
 QuickPopup 1.0 QuickPopup.qml
 QuickSlider 1.0 QuickSlider.qml
 QuickSwitch 1.0 QuickSwitch.qml
+SectionHeader 1.0 SectionHeader.qml
 StatusArea 1.0 StatusArea.qml
 singleton Theme 1.0 Theme.qml
 singleton Time 1.0 Time.qml
@@ -22,3 +23,4 @@ Volume 1.0 Volume.qml
 VolumePanel 1.0 VolumePanel.qml
 WifiConnectionIndicator 1.0 WifiConnectionIndicator.qml
 Workspaces 1.0 Workspaces.qml
+AudioSinkIndicator 1.0 AudioSinkIndicator.qml

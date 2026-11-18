@@ -8,7 +8,7 @@ PopupWindow {
     // until the closing animation has finished.
     property bool open: false
     property bool closeOnUnfocus: true
-    property int padding: 6
+    property int padding: 8
     default property alias contents: column.data
 
     visible: open || content.opacity > 0
