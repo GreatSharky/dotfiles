@@ -24,7 +24,7 @@ This repo only holds the config files. Linking them into `~/.config` is handled 
 
 ## Dependencies
 
-The configs expect these programs to be installed:
+Dependencies are designed to be handled by an Ansible-playbook that also does the linking for these configs. The configs expect these programs to be installed:
 
 - Hyprland (with Lua config support), hypridle, hyprlock, hyprpaper, hyprlauncher, hyprpolkitagent
 - Quickshell (the bar, see `quickshell/README.md` for its own requirements)
