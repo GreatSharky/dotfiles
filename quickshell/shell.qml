@@ -6,4 +6,5 @@ import qs.components
 Scope {
   WallpaperClock {}
   SystemTray {}
+  Notifications {}
 }
