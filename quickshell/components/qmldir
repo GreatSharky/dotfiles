@@ -10,6 +10,9 @@ Mic 1.0 Mic.qml
 NavigationBar 1.0 NavigationBar.qml
 Network 1.0 Network.qml
 NetworkPanel 1.0 NetworkPanel.qml
+NotificationIndicator 1.0 NotificationIndicator.qml
+NotificationPanel 1.0 NotificationPanel.qml
+NotificationCard 1.0 NotificationCard.qml
 Notifications 1.0 Notifications.qml
 singleton NotificationStore 1.0 NotificationStore.qml
 Poller 1.0 Poller.qml
