@@ -33,7 +33,7 @@ Singleton {
     // Plain QML state, saved as JSON so modes and per-app choices survive a restart.
     // (JsonAdapter was tried first: its writes only show up on the next event-loop turn, so
     // two changes in a row lose one. Plain properties have no such surprise.)
-    readonly property var quietDefaults: ({ sound: false, toast: false, panel: true, indicator: true })
+    readonly property var quietDefaults: ({ sound: false, toast: true, panel: true, indicator: true })
     property var settings: ({
         modes: { noSound: false, noPopups: false, noIndicators: false },
         toast: { position: "top-right", monitor: "focused" },

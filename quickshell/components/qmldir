@@ -3,6 +3,7 @@ AppIcon 1.0 AppIcon.qml
 Battery 1.0 Battery.qml
 Brightness 1.0 Brightness.qml
 ClockWidget 1.0 ClockWidget.qml
+singleton CustomIcons 1.0 CustomIcons.qml
 singleton Functions 1.0 Functions.qml
 Indicator 1.0 Indicator.qml
 Mic 1.0 Mic.qml

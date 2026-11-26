@@ -1,7 +1,4 @@
 // Toasts.qml
-// Step 3 of the notification system (see "Notifications" in the README): the small popups on
-// a screen edge. NotificationStore decides whether a notification gets a toast (app setting
-// and the "no popups" mode) and announces it with toastRequested; this only shows them.
 //
 // One overlay window on one screen. It takes no keyboard focus and only the cards take
 // mouse input, so it never gets in the way.
@@ -24,6 +21,9 @@ Scope {
     // What is on screen, newest first: [{ uid, record }]. Not the stored notifications.
     property var toasts: []
     property int nextUid: 0
+
+    // Touch the icon list now so it is loaded before the first toast needs it.
+    readonly property var customIcons: CustomIcons.map
 
     Connections {
         target: NotificationStore

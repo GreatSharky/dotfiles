@@ -21,8 +21,12 @@ Rectangle {
     readonly property var entry: DesktopEntries.heuristicLookup(record.key)
     readonly property string appName: record.appName || entry?.name || record.key
 
-    // The notification's own image, then its icon, then the app's desktop-entry icon.
+    // 1. a custom icon from icons/ (by app key, then by app name), the same files the navigation
+    //    bar uses, 2. the notification's own image, 3. its icon, 4. the app's desktop-entry icon.
     readonly property string iconSource: {
+        const custom = CustomIcons.lookup(record.key) || CustomIcons.lookup(record.appName)
+        if (custom !== "")
+            return custom
         const n = notification
         if (n.image !== "")
             return n.image
@@ -54,14 +58,13 @@ Rectangle {
     border.width: 1
     border.color: Theme.border
 
-    opacity: shown && !closing ? 1 : 0
+    opacity: shown && !closing ? 0.6 : 0
     Behavior on opacity { NumberAnimation { duration: 150; easing.type: Easing.OutCubic } }
     Component.onCompleted: shown = true
 
     Timer { id: removeTimer; interval: 170; onTriggered: root.finished() }
 
     // The lifetime is an animation so it can be paused and then continue where it was.
-    // (A stopped and restarted Timer would begin again from the full interval.)
     NumberAnimation on remaining {
         id: life
         from: 1
