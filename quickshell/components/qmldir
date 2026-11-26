@@ -21,6 +21,8 @@ SectionHeader 1.0 SectionHeader.qml
 StatusArea 1.0 StatusArea.qml
 singleton Theme 1.0 Theme.qml
 singleton Time 1.0 Time.qml
+ToastCard 1.0 ToastCard.qml
+Toasts 1.0 Toasts.qml
 Volume 1.0 Volume.qml
 VolumePanel 1.0 VolumePanel.qml
 WifiConnectionIndicator 1.0 WifiConnectionIndicator.qml

@@ -7,4 +7,5 @@ Scope {
   WallpaperClock {}
   SystemTray {}
   Notifications {}
+  Toasts {}
 }
