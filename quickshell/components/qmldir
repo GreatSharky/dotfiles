@@ -15,6 +15,7 @@ NotificationPanel 1.0 NotificationPanel.qml
 NotificationCard 1.0 NotificationCard.qml
 Notifications 1.0 Notifications.qml
 singleton NotificationStore 1.0 NotificationStore.qml
+PanelCard 1.0 PanelCard.qml
 Poller 1.0 Poller.qml
 singleton PopupManager 1.0 PopupManager.qml
 QuickButton 1.0 QuickButton.qml

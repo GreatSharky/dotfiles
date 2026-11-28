@@ -46,4 +46,5 @@ Singleton {
 
   // Fonts
   readonly property string font:     "JetBrainsMono Nerd Font"
+  readonly property string fontmono:     "JetBrainsMono Nerd Font Mono"
 }

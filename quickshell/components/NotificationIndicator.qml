@@ -1,9 +1,7 @@
-
 Indicator {
     id: root
-    readonly property string bellGlyphs: "󰂚"
 
-    icon: root.bellGlyphs
+    icon: notificationpanel.modeIcon
     text: NotificationStore.unreadCount
 
     popup: QuickPopup {
@@ -12,6 +10,8 @@ Indicator {
         anchor.rect.y: root.height
         anchor.rect.x: (root.width - popup.implicitWidth) / 2
 
-        NotificationPanel {}
+        NotificationPanel {
+            id: notificationpanel
+        }
     }
 }
